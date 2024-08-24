@@ -30,6 +30,8 @@ Map data = {
         'location': instance.location,
         'ethiopianDate': instance.ethiopianDate,
         'gregorianDate': instance.gregorianDate,
+        'ethiopianDay': instance.ethiopianDay,
+        'gregorianDay': instance.gregorianDay,
       };
     });
   }
@@ -63,9 +65,9 @@ Map data = {
               const SizedBox(
                 height: 20.0,
               ),
-              const Text(
-                'ሰኞ',
-                style: TextStyle(
+               Text(
+                data['ethiopianDay'] ?? 'Loading...',
+                style: const TextStyle(
                     fontSize: 20.0,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.bold,
@@ -94,9 +96,9 @@ Map data = {
               const SizedBox(
                 height: 25.0,
               ),
-              const Text(
-                'Monday',
-                style: TextStyle(
+              Text(
+                data['gregorianDay'] ?? 'Loading...',
+                style: const TextStyle(
                     fontSize: 20.0,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.bold,

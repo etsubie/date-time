@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/pages/services/conversion.dart';
-// import 'package:myapp/pages/services/conversion.dart';
 
 class WorldTime {
   String location;
@@ -11,6 +10,8 @@ class WorldTime {
   String url;
   String ethiopianDate = '';
   String gregorianDate = '';
+  String gregorianDay = '';
+  String ethiopianDay = '';
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -26,10 +27,14 @@ class WorldTime {
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(offset)));
 
-      // isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
+      // Get the day of the week in the Gregorian calendar
+      gregorianDay = DateFormat.EEEE().format(now); 
 
-      time = DateFormat.jm().format(now); // Example: 5:45 PM
+      // Map the Gregorian day to the Ethiopian day
+      ethiopianDay = _mapToEthiopianDay(gregorianDay);
 
+      time = DateFormat.jm().format(now); 
+      
       Map<String, dynamic> ethiopianDateObj =
           EthiopianDateConverter.fromGregorian(now);
       ethiopianDate =
@@ -39,6 +44,27 @@ class WorldTime {
     } catch (e) {
       print('caught error: $e');
       time = 'Could not get time data';
+    }
+  }
+
+  String _mapToEthiopianDay(String gregorianDay) {
+    switch (gregorianDay) {
+      case 'Monday':
+        return 'ሰኞ';
+      case 'Tuesday':
+        return 'ማክሰኞ';
+      case 'Wednesday':
+        return 'ረቡዕ';
+      case 'Thursday':
+        return 'ሐሙስ';
+      case 'Friday':
+        return 'ዓርብ';
+      case 'Saturday':
+        return 'ቅዳሜ';
+      case 'Sunday':
+        return 'እሑድ';
+      default:
+        return '';
     }
   }
 }

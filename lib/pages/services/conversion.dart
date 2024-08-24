@@ -5,8 +5,6 @@ class EthiopianDateConverter {
 
   static Map<String, dynamic> fromGregorian(DateTime date) {
     int gregorianYear = date.year;
-    // int gregorianMonth = date.month;
-    // int gregorianDay = date.day;
 
     int ethiopianYear;
     int ethiopianMonth;
